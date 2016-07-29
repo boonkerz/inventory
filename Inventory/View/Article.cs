@@ -36,7 +36,10 @@ namespace Inventory.View
         private void loadData()
         {
             this.gridArticle.AutoGenerateColumns = false;
+            this.gridArticleUnit.AutoGenerateColumns = false;
             this.gridArticle.DataSource = repo.getAll();
+
+            this.gridArticleUnit.DataSource = null;
 
             this.selectArticleGroup.DataSource = repoArticleGroup.getAll();
             this.selectArticleGroup.DisplayMember = "Name";
@@ -115,6 +118,8 @@ namespace Inventory.View
             this.btnDelete.Enabled = true;
             this.txtLagerPlatz.Enabled = false;
             this.txtSerialNumber.Enabled = false;
+
+            this.gridArticleUnit.DataSource = repoUnit.getAllByArticle(this.actArticle);
         }
 
         private void btnNew_Click(object sender, EventArgs e)

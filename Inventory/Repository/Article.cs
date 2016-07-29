@@ -112,8 +112,9 @@ namespace Inventory.Repository
         public void delete(Inventory.Model.Article article)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", new BsonObjectId(ObjectId.Parse(article.Id)));
-
+            var filterUnits = Builders<BsonDocument>.Filter.Eq("article.$id", new BsonObjectId(ObjectId.Parse(article.Id)));
             this.database.getCollection("articles").DeleteOne(filter);
+            this.database.getCollection("articleUnits").DeleteMany(filterUnits);
         }
     }
 }
