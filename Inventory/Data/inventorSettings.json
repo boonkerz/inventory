@@ -1,0 +1,17 @@
+﻿{
+  "dbHost": "localhost",
+  "dbPort": 27019,
+  "dbName": "inventory",
+  "dbUserName": "inventory",
+  "dbPassword": "inventory",
+  "appX": 0,
+	"appY": 0,
+	"labelFile": "",
+  "labelPrinter": "",
+  "startNumberArticle": 1,
+  "startNumberArticleUnit":  1,
+  "startNumberCustomer": 1,
+  "startNumberArticlegroup": 1,
+  "startNumberBooking": 1,
+  "startNumberProject": 1
+}
