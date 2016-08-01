@@ -46,6 +46,34 @@ namespace Inventory.Repository
             return data;
 
         }
+        
+        public Model.Article getOne(string v)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new BsonObjectId(new ObjectId(v)));
+
+            IMongoCollection<BsonDocument> coll = this.database.getCollection("articles");
+
+            BsonDocument item = coll.Find(filter).Single();
+
+            Inventory.Repository.Articlegroups repoArticleGroup = new Repository.Articlegroups(Inventory.Provider.Container.getDatabase());
+
+            Inventory.Repository.Customers repoCustomer = new Repository.Customers(Inventory.Provider.Container.getDatabase());
+
+            Model.Article article = new Model.Article();
+            article.Id = item.GetValue("_id").ToString();
+            article.Bestand = item.GetValue("bestand").ToInt32();
+            article.MinBestand = item.GetValue("minBestand").ToInt32();
+            article.MeldeBestand = item.GetValue("meldeBestand").ToInt32();
+            article.Nr = item.GetValue("nr").ToInt32();
+            article.Name = item.GetValue("name").ToString();
+
+            article.ArticleGroup = repoArticleGroup.getOne(item.GetValue("articleGroup").ToBsonDocument().GetValue("$id").ToString());
+            article.Owner = repoCustomer.getOne(item.GetValue("owner").ToBsonDocument().GetValue("$id").ToString());
+
+
+            return article;
+
+        }
 
         public void insert(Inventory.Model.Article article)
 		{
@@ -75,7 +103,9 @@ namespace Inventory.Repository
 
 			this.database.getCollection("articles").InsertOne(document);
             article.Id = document.GetValue("_id").ToString();
-            settings.StartNumberArticlegroup++;
+            article.Nr = settings.StartNumberArticle;
+
+            settings.StartNumberArticle++;
             Provider.Settings set = new Provider.Settings();
             set.saveSettings(settings);
         }
@@ -103,7 +133,7 @@ namespace Inventory.Repository
                         {"$db" , settings.DbName}
                     }
                 },
-                { "nr",  settings.StartNumberArticle}
+                { "nr",  article.Nr}
             };
 
             this.database.getCollection("articles").ReplaceOne(filter, document);

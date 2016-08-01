@@ -15,10 +15,20 @@ namespace Inventory.Model
         private string lagerPlatz;
 
         private int nr;
-
+        
         private string serialNumber;
 
-        private DateTime created;
+        private DateTime created = new DateTime();
+
+        private Boolean outSourced = false;
+
+        public string ArticleName
+        {
+            get
+            {
+                return this.article.Name;
+            }
+        }
 
         public string Id
         {
@@ -95,6 +105,19 @@ namespace Inventory.Model
             set
             {
                 created = value;
+            }
+        }
+
+        public bool OutSourced
+        {
+            get
+            {
+                return outSourced;
+            }
+
+            set
+            {
+                outSourced = value;
             }
         }
     }

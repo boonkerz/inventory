@@ -44,9 +44,10 @@ namespace Inventory.Repository
             };
 
 			this.database.getCollection("customers").InsertOne(document);
-
-            settings.StartNumberArticlegroup++;
             customer.Id = document.GetValue("_id").ToString();
+            customer.Nr = settings.StartNumberCustomer;
+
+            settings.StartNumberCustomer++;
             Provider.Settings set = new Provider.Settings();
             set.saveSettings(settings);
         }
@@ -59,8 +60,9 @@ namespace Inventory.Repository
 			{
 				{ "name", customer.Name },
 				{ "email", customer.Email },
-				{ "tel", customer.Tel }
-			};
+				{ "tel", customer.Tel },
+                { "nr", customer.Nr }
+            };
 
 			this.database.getCollection("customers").ReplaceOne(filter, document);
 		}

@@ -48,19 +48,12 @@ namespace Inventory.View
             this.selectOwner.DisplayMember = "Name";
             this.selectOwner.ValueMember = "Id";
             this.btnDelete.Enabled = false;
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnLabel_Click(object sender, EventArgs e)
-        {
-            
-            var label = DYMO.Label.Framework.Label.Open(settings.LabelFile);
-            label.SetObjectText("artikelNr", actArticle.Nr.ToString());
-            label.Print(settings.LabelPrinter);
+            this.btnDelUnit.Enabled = false;
+            this.btnNewUnit.Enabled = false;
+            this.btnSaveUnit.Enabled = false;
+            this.gridArticleUnit.Enabled = false;
+            this.txtLagerPlatzUnit.Enabled = false;
+            this.txtSerialNumberUnit.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -80,6 +73,7 @@ namespace Inventory.View
                 actArticleUnit.Article = actArticle;
                 actArticleUnit.Created = new DateTime();
                 actArticleUnit.LagerPlatz = this.txtLagerPlatz.Text;
+                actArticleUnit.OutSourced = false;
                 actArticleUnit.SerialNumber = this.txtSerialNumber.Text;
 
                 repoUnit.insert(actArticleUnit);
@@ -118,6 +112,12 @@ namespace Inventory.View
             this.btnDelete.Enabled = true;
             this.txtLagerPlatz.Enabled = false;
             this.txtSerialNumber.Enabled = false;
+            this.btnDelUnit.Enabled = false;
+            this.btnNewUnit.Enabled = true;
+            this.btnSaveUnit.Enabled = true;
+            this.gridArticleUnit.Enabled = true;
+            this.txtSerialNumberUnit.Enabled = true;
+            this.txtLagerPlatzUnit.Enabled = true;
 
             this.gridArticleUnit.DataSource = repoUnit.getAllByArticle(this.actArticle);
         }
@@ -135,18 +135,106 @@ namespace Inventory.View
             this.btnDelete.Enabled = false;
             this.txtLagerPlatz.Enabled = true;
             this.txtSerialNumber.Enabled = true;
+            this.btnDelete.Enabled = false;
+            this.btnDelUnit.Enabled = false;
+            this.btnNewUnit.Enabled = false;
+            this.btnSaveUnit.Enabled = false;
+            this.gridArticleUnit.Enabled = false;
+            this.txtLagerPlatzUnit.Enabled = false;
+            this.txtSerialNumberUnit.Enabled = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             repo.delete(actArticle);
+            actArticle = new Model.Article();
+            actArticleUnit = new Model.ArticleUnit();
+            this.txtName.Text = "";
+            this.txtLagerPlatz.Text = "";
+            this.txtSerialNumber.Text = "";
+            this.numBestand.Value = 1;
+            this.numMinBestand.Value = 1;
+            this.numMeldeBestand.Value = 1;
             this.btnDelete.Enabled = false;
+            this.txtLagerPlatz.Enabled = true;
+            this.txtSerialNumber.Enabled = true;
+            this.btnDelete.Enabled = false;
+            this.btnDelUnit.Enabled = false;
+            this.btnNewUnit.Enabled = false;
+            this.btnSaveUnit.Enabled = false;
+            this.gridArticleUnit.Enabled = false;
+            this.txtLagerPlatzUnit.Enabled = false;
+            this.txtSerialNumberUnit.Enabled = false;
             loadData();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void btnNewUnit_Click(object sender, EventArgs e)
         {
+            actArticleUnit = new Model.ArticleUnit();
 
+            this.txtLagerPlatzUnit.Text = "";
+            this.txtSerialNumberUnit.Text = "";
+            this.btnDelUnit.Enabled = false;
+        }
+
+        private void btnSaveUnit_Click(object sender, EventArgs e)
+        {
+            actArticleUnit.Article = actArticle;
+            actArticleUnit.Created = new DateTime();
+            actArticleUnit.LagerPlatz = this.txtLagerPlatz.Text;
+            actArticleUnit.SerialNumber = this.txtSerialNumber.Text;
+
+            if (actArticleUnit.Id == null)
+            {
+                repoUnit.insert(actArticleUnit);
+
+                actArticle.Bestand++;
+
+                repo.update(actArticle);
+                this.numBestand.Value = actArticle.Bestand;
+            }
+            else
+            {
+                repo.update(actArticle);
+            }
+
+            actArticleUnit = new Model.ArticleUnit();
+            this.txtLagerPlatzUnit.Text = "";
+            this.txtSerialNumberUnit.Text = "";
+            this.btnDelUnit.Enabled = false;
+
+            this.gridArticleUnit.DataSource = repoUnit.getAllByArticle(actArticle);
+        }
+
+        private void btnDelUnit_Click(object sender, EventArgs e)
+        {
+            repoUnit.delete(actArticleUnit);
+
+            actArticle.Bestand--;
+
+            repo.update(actArticle);
+            this.numBestand.Value = actArticle.Bestand;
+
+            actArticleUnit = new Model.ArticleUnit();
+            this.txtLagerPlatz.Text = "";
+            this.txtSerialNumber.Text = "";
+            this.btnDelUnit.Enabled = false;
+        }
+
+        private void btnPrintUnit_Click(object sender, EventArgs e)
+        {
+            var label = DYMO.Label.Framework.Label.Open(settings.LabelFile);
+            label.SetObjectText("artikelNr", actArticle.Nr.ToString() + "-" + actArticleUnit.Nr.ToString());
+            label.Print(settings.LabelPrinter);
+        }
+
+        private void gridArticleUnit_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.actArticleUnit = (Model.ArticleUnit)this.gridArticleUnit.CurrentRow.DataBoundItem;
+            this.txtLagerPlatzUnit.Text = this.actArticleUnit.LagerPlatz;
+            this.txtSerialNumberUnit.Text = this.actArticleUnit.SerialNumber;
+
+            this.btnDelUnit.Enabled = true;
         }
     }
 }

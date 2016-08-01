@@ -11,9 +11,9 @@ namespace Inventory.Model
 
 		private int bestand;
 
-		private DateTime created;
+        private DateTime created = new DateTime();
 
-		private Customer owner;
+        private Customer owner;
 
 		private int minBestand;
     

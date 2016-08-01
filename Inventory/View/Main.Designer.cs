@@ -57,7 +57,8 @@
             this.inventoryToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1224, 40);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(612, 38);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -101,12 +102,13 @@
             this.tableLayoutPanel1.Controls.Add(this.btnArticleGroups, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnCustomer, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnArticle, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 16);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(424, 465);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(207, 238);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // btnArticleGroups
@@ -114,9 +116,10 @@
             this.btnArticleGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArticleGroups.Location = new System.Drawing.Point(3, 3);
+            this.btnArticleGroups.Location = new System.Drawing.Point(2, 2);
+            this.btnArticleGroups.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnArticleGroups.Name = "btnArticleGroups";
-            this.btnArticleGroups.Size = new System.Drawing.Size(206, 226);
+            this.btnArticleGroups.Size = new System.Drawing.Size(99, 115);
             this.btnArticleGroups.TabIndex = 0;
             this.btnArticleGroups.Text = "Artikelgruppen";
             this.btnArticleGroups.UseVisualStyleBackColor = true;
@@ -127,9 +130,10 @@
             this.btnCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCustomer.Location = new System.Drawing.Point(215, 3);
+            this.btnCustomer.Location = new System.Drawing.Point(105, 2);
+            this.btnCustomer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(206, 226);
+            this.btnCustomer.Size = new System.Drawing.Size(100, 115);
             this.btnCustomer.TabIndex = 1;
             this.btnCustomer.Text = "Kunden";
             this.btnCustomer.UseVisualStyleBackColor = true;
@@ -140,9 +144,10 @@
             this.btnArticle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArticle.Location = new System.Drawing.Point(3, 235);
+            this.btnArticle.Location = new System.Drawing.Point(2, 121);
+            this.btnArticle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnArticle.Name = "btnArticle";
-            this.btnArticle.Size = new System.Drawing.Size(206, 227);
+            this.btnArticle.Size = new System.Drawing.Size(99, 115);
             this.btnArticle.TabIndex = 2;
             this.btnArticle.Text = "Artikel";
             this.btnArticle.UseVisualStyleBackColor = true;
@@ -157,12 +162,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnArticleEinlagern, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnArticleAuslagern, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(449, 16);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(224, 10);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(356, 465);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(173, 238);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // btnArticleEinlagern
@@ -170,9 +176,10 @@
             this.btnArticleEinlagern.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArticleEinlagern.Location = new System.Drawing.Point(3, 3);
+            this.btnArticleEinlagern.Location = new System.Drawing.Point(2, 2);
+            this.btnArticleEinlagern.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnArticleEinlagern.Name = "btnArticleEinlagern";
-            this.btnArticleEinlagern.Size = new System.Drawing.Size(350, 226);
+            this.btnArticleEinlagern.Size = new System.Drawing.Size(169, 115);
             this.btnArticleEinlagern.TabIndex = 0;
             this.btnArticleEinlagern.Text = "Artikel einlagern";
             this.btnArticleEinlagern.UseVisualStyleBackColor = true;
@@ -182,12 +189,14 @@
             this.btnArticleAuslagern.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArticleAuslagern.Location = new System.Drawing.Point(3, 235);
+            this.btnArticleAuslagern.Location = new System.Drawing.Point(2, 121);
+            this.btnArticleAuslagern.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnArticleAuslagern.Name = "btnArticleAuslagern";
-            this.btnArticleAuslagern.Size = new System.Drawing.Size(350, 227);
+            this.btnArticleAuslagern.Size = new System.Drawing.Size(169, 115);
             this.btnArticleAuslagern.TabIndex = 1;
             this.btnArticleAuslagern.Text = "Artikel auslagern";
             this.btnArticleAuslagern.UseVisualStyleBackColor = true;
+            this.btnArticleAuslagern.Click += new System.EventHandler(this.btnArticleAuslagern_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -198,16 +207,17 @@
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.32802F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.67198F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 318F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 161F));
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 2, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(41, 72);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(20, 37);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1143, 497);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(572, 258);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -218,12 +228,13 @@
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.btnOpen, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(814, 16);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(404, 10);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(313, 465);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(158, 238);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // btnOpen
@@ -231,21 +242,23 @@
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(3, 3);
+            this.btnOpen.Location = new System.Drawing.Point(2, 2);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(307, 226);
+            this.btnOpen.Size = new System.Drawing.Size(154, 115);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Aktuell ausgeliehen";
             this.btnOpen.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 598);
+            this.ClientSize = new System.Drawing.Size(612, 311);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Inventory";
             this.menuStrip1.ResumeLayout(false);

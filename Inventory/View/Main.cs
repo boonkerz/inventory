@@ -46,5 +46,11 @@ namespace Inventory
             View.Article articleWindow = new View.Article();
             articleWindow.Show();
         }
+
+        private void btnArticleAuslagern_Click(object sender, EventArgs e)
+        {
+            View.ArticleOutsourcing outSourcingWindow = new View.ArticleOutsourcing();
+            outSourcingWindow.Show();
+        }
     }
 }

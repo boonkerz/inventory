@@ -44,6 +44,9 @@ namespace Inventory.Repository
 
 			this.database.getCollection("articlegroups").InsertOne(document);
 
+            group.Nr = settings.StartNumberArticlegroup;
+            group.Id = document.GetValue("_id").ToString();
+
             settings.StartNumberArticlegroup++;
             Provider.Settings set = new Provider.Settings();
             set.saveSettings(settings);
@@ -55,8 +58,9 @@ namespace Inventory.Repository
 
 			var document = new BsonDocument
 			{
-				{ "name", group.Name }
-			};
+				{ "name", group.Name },
+                { "nr", group.Nr }
+            };
 
 			this.database.getCollection("articlegroups").ReplaceOne(filter, document);
 		}
