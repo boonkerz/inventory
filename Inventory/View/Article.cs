@@ -224,7 +224,7 @@ namespace Inventory.View
         private void btnPrintUnit_Click(object sender, EventArgs e)
         {
             var label = DYMO.Label.Framework.Label.Open(settings.LabelFile);
-            label.SetObjectText("artikelNr", actArticle.Nr.ToString() + "-" + actArticleUnit.Nr.ToString());
+            label.SetObjectText("artikelNr", actArticleUnit.Nr.ToString());
             label.Print(settings.LabelPrinter);
         }
 

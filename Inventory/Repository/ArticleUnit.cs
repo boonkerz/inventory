@@ -25,6 +25,17 @@ namespace Inventory.Repository
         {
             Model.Settings settings = Provider.Container.getSettings();
 
+            var Outsourced = new BsonDocument { };
+
+            if (articleUnit.OutSourcedBooking != null)
+            {
+                Outsourced = new BsonDocument {
+                        {"$ref", "article"},
+                        {"$id" , new BsonObjectId(new ObjectId(articleUnit.OutSourcedBooking.Id))},
+                        {"$db" , settings.DbName}
+                };
+            }
+
             var document = new BsonDocument
             {
                 { "lagerPlatz", articleUnit.LagerPlatz },
@@ -37,6 +48,7 @@ namespace Inventory.Repository
                         {"$db" , settings.DbName}
                     }
                 },
+                { "outSourcedBooking", Outsourced },
                 { "nr",  settings.StartNumberArticleUnit}
             };
 
@@ -54,6 +66,18 @@ namespace Inventory.Repository
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", new BsonObjectId(new ObjectId(articleUnit.Id)));
 
+
+            var Outsourced = new BsonDocument { };
+
+            if (articleUnit.OutSourcedBooking != null)
+            {
+                Outsourced = new BsonDocument {
+                        {"$ref", "article"},
+                        {"$id" , new BsonObjectId(new ObjectId(articleUnit.OutSourcedBooking.Id))},
+                        {"$db" , settings.DbName}
+                };
+            }
+
             var document = new BsonDocument
             {
                 { "lagerPlatz", articleUnit.LagerPlatz },
@@ -66,8 +90,11 @@ namespace Inventory.Repository
                         {"$db" , settings.DbName}
                     }
                 },
+                { "outSourcedBooking", Outsourced },
                 { "nr",  articleUnit.Nr}
             };
+
+            
 
             this.database.getCollection("articleUnits").ReplaceOne(filter, document);
         }
@@ -100,9 +127,42 @@ namespace Inventory.Repository
             this.database.getCollection("articleUnits").DeleteOne(filter);
         }
 
+        public ArrayList getAllOutsourced()
+        {
+            Inventory.Repository.Article repoArticle = new Repository.Article(Inventory.Provider.Container.getDatabase());
+
+            Inventory.Repository.Bookings repoBookings = new Repository.Bookings(Inventory.Provider.Container.getDatabase());
+
+
+            var filter = Builders<BsonDocument>.Filter.Eq("outSourced", new BsonBoolean(true));
+
+            ArrayList data = new ArrayList();
+
+            IMongoCollection<BsonDocument> coll = this.database.getCollection("articleUnits");
+
+            foreach (BsonDocument item in coll.Find(filter).ToList())
+            {
+                Model.ArticleUnit articleUnit = new Model.ArticleUnit();
+                articleUnit.Id = item.GetValue("_id").ToString();
+                articleUnit.Nr = item.GetValue("nr").ToInt32();
+                articleUnit.LagerPlatz = item.GetValue("lagerPlatz").ToString();
+                articleUnit.SerialNumber = item.GetValue("serialNumber").ToString();
+                articleUnit.OutSourced = item.GetValue("outSourced").ToBoolean();
+
+                articleUnit.Article = repoArticle.getOne(item.GetValue("article").ToBsonDocument().GetValue("$id").ToString());
+                articleUnit.OutSourcedBooking = repoBookings.getOne(item.GetValue("outSourcedBooking").ToBsonDocument().GetValue("$id").ToString());
+
+
+                data.Add(articleUnit);
+            }
+
+            return data;
+        }
+
         public Model.ArticleUnit getOneBySerialNumber(string v)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq("serialNumber", v) | Builders<BsonDocument>.Filter.Eq("nr", Int32.Parse(v));
+            string justNumbers = new String(v.Where(Char.IsDigit).ToArray());
+            var filter = Builders<BsonDocument>.Filter.Eq("serialNumber", v) | Builders<BsonDocument>.Filter.Eq("nr", Int32.Parse(justNumbers));
 
             IMongoCollection<BsonDocument> coll = this.database.getCollection("articleUnits");
 

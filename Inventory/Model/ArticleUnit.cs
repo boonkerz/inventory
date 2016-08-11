@@ -22,6 +22,16 @@ namespace Inventory.Model
 
         private Boolean outSourced = false;
 
+        private Booking outSourcedBooking = null;
+
+        public string OutSourcedCustomerName
+        {
+            get
+            {
+                return this.OutSourcedBooking.Customer.Name;
+            }
+        }
+
         public string ArticleName
         {
             get
@@ -118,6 +128,19 @@ namespace Inventory.Model
             set
             {
                 outSourced = value;
+            }
+        }
+
+        public Booking OutSourcedBooking
+        {
+            get
+            {
+                return outSourcedBooking;
+            }
+
+            set
+            {
+                outSourcedBooking = value;
             }
         }
     }

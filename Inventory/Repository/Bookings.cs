@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,26 @@ namespace Inventory.Repository
             this.database = database;
         }
 
+        public Model.Booking getOne(string v)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new BsonObjectId(new ObjectId(v)));
+
+            Inventory.Repository.Customers repoCustomer = new Repository.Customers(Inventory.Provider.Container.getDatabase());
+
+            IMongoCollection<BsonDocument> coll = this.database.getCollection("bookings");
+
+            BsonDocument item = coll.Find(filter).Single();
+
+            Model.Booking booking = new Model.Booking();
+            booking.Id = item.GetValue("_id").ToString();
+            booking.Description = item.GetValue("description").ToString();
+            booking.Customer = repoCustomer.getOne(item.GetValue("customer").ToBsonDocument().GetValue("$id").ToString());
+
+
+            return booking;
+
+        }
+
         public void insert(Inventory.Model.Booking booking)
         {
             Model.Settings settings = Provider.Container.getSettings();
@@ -33,10 +54,7 @@ namespace Inventory.Repository
                     {"$id" , new BsonObjectId(new ObjectId(unit.Id))},
                     {"$db" , settings.DbName}
                 });
-
-                unit.OutSourced = true;
-
-                repoArticleUnit.update(unit);
+                
             }
 
             var document = new BsonDocument
@@ -59,6 +77,14 @@ namespace Inventory.Repository
             booking.Nr = settings.StartNumberBooking;
             booking.Id = document.GetValue("_id").ToString();
 
+            foreach (Model.ArticleUnit unit in booking.ArticleUnits)
+            {
+                unit.OutSourced = true;
+                unit.OutSourcedBooking = booking;
+
+                repoArticleUnit.update(unit);
+            }
+            
             settings.StartNumberArticleUnit++;
             Provider.Settings set = new Provider.Settings();
             set.saveSettings(settings);
