@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
+using TemplateEngine.Docx;
 
 namespace Inventory.View
 {
@@ -20,6 +23,7 @@ namespace Inventory.View
 
         Repository.Bookings repoBooking = new Repository.Bookings(Inventory.Provider.Container.getDatabase());
 
+        Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         Model.Booking booking = new Model.Booking();
 
@@ -121,8 +125,53 @@ namespace Inventory.View
 
             this.repoBooking.insert(this.booking);
             
-            if (MessageBox.Show("Beleg drucken?", "Drucken?", MessageBoxButtons.YesNo) == DialogResult.OK)
+            if (MessageBox.Show("Beleg drucken?", "Drucken?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+
+                var outFile = Path.Combine(settings.BelegOutsourcedSaveDir, booking.Nr.ToString() + ".docx");
+
+                File.Delete(outFile);
+                File.Copy(settings.BelegOutsourcedVorlageFile, outFile);
+
+                TableContent tableContent = new TableContent("Article");
+
+                foreach(Model.ArticleUnit unit in booking.ArticleUnits)
+                {
+                    tableContent.AddRow(
+                        new FieldContent("Name", unit.ArticleName),
+                        new FieldContent("SerialNumber", unit.SerialNumber),
+                        new FieldContent("Count", "1")
+                    );
+                }
+
+                var valuesToFill = new Content(
+                    tableContent,
+                    new FieldContent("Sum", booking.ArticleUnits.Count.ToString())
+                );
+
+                using (var outputDocument = new TemplateProcessor(outFile)
+                    .SetRemoveContentControls(true))
+                {
+                    outputDocument.SetNoticeAboutErrors(false);
+                    outputDocument.FillContent(valuesToFill);
+                    outputDocument.SaveChanges();
+
+                    Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+
+                    wordApp.Visible = false;
+
+                    PrintDialog pDialog = new PrintDialog();
+                    if (pDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Microsoft.Office.Interop.Word.Document doc = wordApp.Documents.Add(outFile);
+                        wordApp.ActivePrinter = pDialog.PrinterSettings.PrinterName;
+                        wordApp.ActiveDocument.PrintOut(); //this will also work: doc.PrintOut();
+                        doc.Close(SaveChanges: false);
+                        doc = null;
+                    }
+
+
+                }
 
             }
 
@@ -134,6 +183,7 @@ namespace Inventory.View
         {
             this.booking = new Model.Booking();
             loadData();
+
         }
 
         private void btnEditCustomer_Click(object sender, EventArgs e)

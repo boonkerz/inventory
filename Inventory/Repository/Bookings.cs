@@ -12,7 +12,7 @@ namespace Inventory.Repository
     {
         private Inventory.Provider.Database database;
 
-        private Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+        private Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         public Bookings(Inventory.Provider.Database database)
         {
@@ -41,7 +41,7 @@ namespace Inventory.Repository
 
         public void insert(Inventory.Model.Booking booking)
         {
-            Model.Settings settings = Provider.Container.getSettings();
+            Model.LocalSettings settings = Provider.Container.getSettings();
 
             BsonArray ArticleUnits = new BsonArray { };
 
@@ -85,8 +85,8 @@ namespace Inventory.Repository
                 repoArticleUnit.update(unit);
             }
             
-            settings.StartNumberArticleUnit++;
-            Provider.Settings set = new Provider.Settings();
+            settings.StartNumberBooking++;
+            Provider.LocalSettings set = new Provider.LocalSettings();
             set.saveSettings(settings);
         }
     }

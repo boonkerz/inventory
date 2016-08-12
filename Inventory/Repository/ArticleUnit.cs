@@ -14,7 +14,7 @@ namespace Inventory.Repository
     {
         private Inventory.Provider.Database database;
 
-        private Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+        private Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         public ArticleUnit(Inventory.Provider.Database database)
         {
@@ -23,7 +23,7 @@ namespace Inventory.Repository
 
         public void insert(Inventory.Model.ArticleUnit articleUnit)
         {
-            Model.Settings settings = Provider.Container.getSettings();
+            Model.LocalSettings settings = Provider.Container.getSettings();
 
             var Outsourced = new BsonDocument { };
 
@@ -58,7 +58,7 @@ namespace Inventory.Repository
             articleUnit.Id = document.GetValue("_id").ToString();
 
             settings.StartNumberArticleUnit++;
-            Provider.Settings set = new Provider.Settings();
+            Provider.LocalSettings set = new Provider.LocalSettings();
             set.saveSettings(settings);
         }
 

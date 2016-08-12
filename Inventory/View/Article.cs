@@ -21,7 +21,7 @@ namespace Inventory.View
 
         Inventory.Repository.ArticleUnit repoUnit = new Repository.ArticleUnit(Inventory.Provider.Container.getDatabase());
 
-        Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+        Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         Model.Article actArticle = new Model.Article();
 

@@ -7,19 +7,19 @@ using Inventory.Model;
 namespace Inventory.Provider
 {
 
-	public class Settings
+	public class LocalSettings
 	{
-		private Inventory.Model.Settings settings;
+		private Inventory.Model.LocalSettings settings;
 		const String CONFIG_FILENAME = "inventorSettings.json";
 
 
-		public Inventory.Model.Settings getSettings()
+		public Inventory.Model.LocalSettings getSettings()
 		{
 			parseJsonObject();
 			return this.settings;
 		}
 
-		public void saveSettings(Inventory.Model.Settings sett)
+		public void saveSettings(Inventory.Model.LocalSettings sett)
 		{
 			String data = JsonConvert.SerializeObject(sett);
 			var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CONFIG_FILENAME);
@@ -32,7 +32,7 @@ namespace Inventory.Provider
 		{
 			String data = loadJsonData();
 
-			settings = JsonConvert.DeserializeObject<Inventory.Model.Settings>(data);
+			settings = JsonConvert.DeserializeObject<Inventory.Model.LocalSettings>(data);
 
 		}
 

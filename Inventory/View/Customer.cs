@@ -17,7 +17,7 @@ namespace Inventory.View
 
         Model.Customer actCustomer = new Model.Customer(null, null, null, null, 0);
 
-        Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+        Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         public Customer()
         {

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Inventory.Repository
 {
-    class Projects
+    class Settings
     {
         private Inventory.Provider.Database database;
 
         private Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
-        public Projects(Inventory.Provider.Database database)
+        public Settings(Inventory.Provider.Database database)
         {
             this.database = database;
         }

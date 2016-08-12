@@ -6,11 +6,11 @@ namespace Inventory.Provider
 {
 	public class Database
 	{
-		private Inventory.Model.Settings settings;
+		private Inventory.Model.LocalSettings settings;
        	private IMongoClient client;
 		private IMongoDatabase database;
 
-		public Database(Inventory.Model.Settings settings)
+		public Database(Inventory.Model.LocalSettings settings)
 		{
 			this.settings = settings;
 

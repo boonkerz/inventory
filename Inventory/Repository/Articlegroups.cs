@@ -34,7 +34,7 @@ namespace Inventory.Repository
 
 		public void insert(Inventory.Model.Articlegroup group)
 		{
-            Model.Settings settings = Provider.Container.getSettings();
+            Model.LocalSettings settings = Provider.Container.getSettings();
 
 			var document = new BsonDocument
 			{
@@ -48,7 +48,7 @@ namespace Inventory.Repository
             group.Id = document.GetValue("_id").ToString();
 
             settings.StartNumberArticlegroup++;
-            Provider.Settings set = new Provider.Settings();
+            Provider.LocalSettings set = new Provider.LocalSettings();
             set.saveSettings(settings);
 		}
 

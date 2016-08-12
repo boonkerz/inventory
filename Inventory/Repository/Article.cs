@@ -9,7 +9,7 @@ namespace Inventory.Repository
 	{
 		private Inventory.Provider.Database database;
 
-		private Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+		private Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
 		public Article(Inventory.Provider.Database database)
 		{
@@ -77,7 +77,7 @@ namespace Inventory.Repository
 
         public void insert(Inventory.Model.Article article)
 		{
-            Model.Settings settings = Provider.Container.getSettings();
+            Model.LocalSettings settings = Provider.Container.getSettings();
 
             var document = new BsonDocument
 			{
@@ -106,7 +106,7 @@ namespace Inventory.Repository
             article.Nr = settings.StartNumberArticle;
 
             settings.StartNumberArticle++;
-            Provider.Settings set = new Provider.Settings();
+            Provider.LocalSettings set = new Provider.LocalSettings();
             set.saveSettings(settings);
         }
 

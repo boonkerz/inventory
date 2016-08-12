@@ -8,6 +8,9 @@
 	"appY": 0,
 	"labelFile": "",
   "labelPrinter": "",
+  "belegOutsourcedVorlageFile": "",
+  "belegOutsourcedSaveDir": "",
+
   "startNumberArticle": 1,
   "startNumberArticleUnit":  1,
   "startNumberCustomer": 1,

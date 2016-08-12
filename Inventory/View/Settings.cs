@@ -12,7 +12,7 @@ namespace Inventory.View
 {
     public partial class Settings : Form
     {
-        Inventory.Model.Settings settings = Inventory.Provider.Container.getSettings();
+        Inventory.Model.LocalSettings settings = Inventory.Provider.Container.getSettings();
 
         public Settings()
         {
@@ -33,6 +33,8 @@ namespace Inventory.View
             this.txtDbUserName.Text = settings.DbUserName;
             this.txtDbPassword.Text = settings.DbPassword;
             this.txtLabelFile.Text = settings.LabelFile;
+            this.txtBelegVorlage.Text = settings.BelegOutsourcedVorlageFile;
+            this.txtBelegDir.Text = settings.BelegOutsourcedSaveDir;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -44,8 +46,10 @@ namespace Inventory.View
             settings.DbPassword = this.txtDbPassword.Text;
             settings.LabelFile = this.txtLabelFile.Text;
             settings.LabelPrinter = this.selectLabelPrinter.Text;
+            settings.BelegOutsourcedVorlageFile = this.txtBelegVorlage.Text;
+            settings.BelegOutsourcedSaveDir = this.txtBelegDir.Text;
 
-            Inventory.Provider.Settings set = new Inventory.Provider.Settings();
+            Inventory.Provider.LocalSettings set = new Inventory.Provider.LocalSettings();
             set.saveSettings(settings);
             this.Close();
         }
@@ -61,6 +65,27 @@ namespace Inventory.View
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBelegVorlage_Click(object sender, EventArgs e)
+        {
+            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.txtBelegVorlage.Text = this.openFileDialog1.FileName;
+            }
+        }
+
+        private void btnBelegDir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            DialogResult result = fbd.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                this.txtBelegDir.Text = fbd.SelectedPath;
+
+            }
         }
     }
 }

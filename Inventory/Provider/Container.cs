@@ -5,27 +5,38 @@ namespace Inventory.Provider
 {
 	public class Container
 	{
-		private static Inventory.Model.Settings settings;
+		private static Inventory.Model.LocalSettings localSettings;
 
-		private static Inventory.Provider.Database database;
+        private static Inventory.Model.GlobalSettings globalSettings;
 
-		public static Inventory.Model.Settings getSettings()
+        private static Inventory.Provider.Database database;
+
+		public static Inventory.Model.GlobalSettings getGlobalSettings()
 		{
-			if (settings == null)
+			if (globalSettings == null)
 			{
-				var settProvider = new Provider.Settings();
-				settings = settProvider.getSettings();
+				var settProvider = new Provider.GlobalSettings();
+                globalSettings = settProvider.getSettings();
 			}
-			return settings;
-
-
+			return globalSettings;
 		}
 
-		public static Inventory.Provider.Database getDatabase()
+        public static Inventory.Model.LocalSettings getLocalSettings()
+        {
+            if (localSettings == null)
+            {
+                var settProvider = new Provider.LocalSettings();
+                localSettings = settProvider.getSettings();
+            }
+            return localSettings;
+        }
+
+
+        public static Inventory.Provider.Database getDatabase()
 		{
 			if (database == null)
 			{
-				database = new Provider.Database(getSettings());
+				database = new Provider.Database(getLocalSettings());
 			}
 			return database;
 
